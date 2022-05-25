@@ -5,7 +5,7 @@ import os from "node:os";
 import path from "node:path";
 import readline from "node:readline";
 import { setTimeout } from "node:timers/promises";
-import { chromium } from "playwright";
+import { chromium as browserExe } from "playwright";
 import yargs from "yargs";
 import download from "./download.js";
 import PLATFORMS from "./platforms.js";
@@ -151,7 +151,7 @@ async function _chkOutputDir(outputPath) {
  */
 async function _setupBrowserAndBegin(extensions, options) {
   // Browser
-  const browser = await chromium.launch(
+  const browser = await browserExe.launch(
     options.debug ? { headless: false, slowMo: 1000 } : undefined
   );
   const page = await browser.newPage();

@@ -42,7 +42,10 @@ export default async function dlExt(progressMultibar, page, ext, options) {
  * @param {number} [timeoutMs] How long to wait (milliseconds)
  */
 async function _navigateTo(page, ext, timeoutMs = undefined) {
-  await page.goto(ext.url.href, { timeout: timeoutMs });
+  await page.goto(ext.url.href, {
+    timeout: timeoutMs,
+    waitUntil: "domcontentloaded",
+  });
   await page.waitForSelector(DL_BTN_SELECTOR, { timeout: timeoutMs });
 }
 
