@@ -1,12 +1,12 @@
 {
   "type": "module",
   "dependencies": {
-    "cli-progress": "^3.10.0",
-    "playwright": "^1.20.2",
-    "yargs": "^17.4.0"
+    "cli-progress": "^3.11.1",
+    "playwright": "^1.22.2",
+    "yargs": "^17.5.1"
   },
   "devDependencies": {
-    "prettier-plugin-jsdoc": "^0.3.36",
+    "prettier-plugin-jsdoc": "^0.3.38",
     "prettier-plugin-organize-imports": "^2.3.4"
   },
   "prettier": {
