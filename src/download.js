@@ -27,7 +27,7 @@ export default async function dlExt(progressMultibar, page, ext, options) {
 
   if (await _hasMultiplePlatforms(page)) {
     return MultiPlatform.init(progressMultibar, page, ext, options).then((x) =>
-      x.run()
+      x?.run()
     );
   } else {
     return SinglePlatform.run(page, options, ext);
@@ -73,9 +73,11 @@ async function _hasSpecifiedPlatforms(page, platforms, matchAll) {
   const availablePlatforms = await page
     .locator(PLATFORM_CAP_SELECTOR)
     .textContent()
-    .then((x) => x.toLocaleLowerCase());
+    .then((x) => x?.toLocaleLowerCase());
 
-  if (availablePlatforms.includes("universal")) {
+  if (availablePlatforms == undefined) {
+    return false;
+  } else if (availablePlatforms.includes("universal")) {
     return true;
   } else if (matchAll) {
     return platforms.every((platform) => availablePlatforms.includes(platform));
@@ -187,7 +189,10 @@ class MultiPlatform {
     return mPlatform;
   }
 
-  /** Determine which platforms we should download, and where those selectors are located */
+  /**
+   * Determine which platforms we should download, and where those selectors are
+   * located
+   */
   async #computePlatformTaskList() {
     /** @type {PlatformTask[]} */
     const platformTaskList = [];
@@ -204,9 +209,12 @@ class MultiPlatform {
     for (let i = 0; i < allSelectorsCount; ++i) {
       const platformName = (
         await allPlatformNameSelectors.nth(i).textContent()
-      ).toLowerCase();
+      )?.toLowerCase();
 
-      if (whitelistPlatforms.includes(platformName)) {
+      if (
+        platformName != undefined &&
+        whitelistPlatforms.includes(platformName)
+      ) {
         platformTaskList.push(new PlatformTask(i, platformName));
       }
     }
@@ -239,6 +247,7 @@ class MultiPlatform {
       });
     }
     this.#progressBar.stop();
+    this._progressMultibar.remove(this.#progressBar);
   }
 
   /** Ensures the Platform Dropdown List exists. */

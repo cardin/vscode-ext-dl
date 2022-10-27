@@ -1,13 +1,17 @@
 NodeJS Script for downloading [Visual Studio Code extensions](https://marketplace.visualstudio.com/vscode).
 
-- Download `.vsix` to transfer to an offline VSCode environment
-- Download `.vsix` for a target platform different from your current OS
+Use Cases
+
+- Downloads the extensions as `.vsix` files
+- Allow an offline VSCode instance to install extensions offline
+- Download the extensions for an arbitrary target platform
 
 ![](https://user-images.githubusercontent.com/553816/162244430-0977eeda-df8d-4de8-b6db-70ef24d5ba2f.png)
 
 Limitations:
 
-- Can only download the latest extension version for your target platform
+- Only the latest extension version can be downloaded
+- The latest version might be a pre-release version
 - Requires to download a Chromium browser binary
 
 # How it works
